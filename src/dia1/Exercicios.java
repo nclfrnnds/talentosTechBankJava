@@ -81,9 +81,9 @@ public class Exercicios {
         System.out.printf("O percentual de votos válidos é de %.2f%%\n" +
                 "O percentual de votos brancos é de %.2f%%\n" +
                 "O percentual de votos nulos é de %.2f%%",
-                ((validos * 100) / eleitores),
-                ((brancos * 100) / eleitores),
-                ((nulos * 100) / eleitores));
+                ((double) validos * 100 / eleitores),
+                ((double) brancos * 100 / eleitores),
+                ((double) nulos * 100 / eleitores));
 
         input.close();
     }
