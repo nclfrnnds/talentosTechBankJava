@@ -1,8 +1,8 @@
-package dia1;
+package semana01;
 
 import java.util.Scanner;
 
-public class Exercicios {
+public class Dia02 {
 
     public static void main(String[] args) {
 

@@ -1,6 +1,6 @@
-package dia0;
+package semana01;
 
-public class Main {
+public class Dia01 {
 
     public static void main(String[] args) {
         System.out.println("Olá, mundo!");
