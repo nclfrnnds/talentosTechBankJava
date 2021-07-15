@@ -27,27 +27,32 @@ public class ContaCorrente extends Conta {
 
     @Override
     public void depositar(double valorDoDeposito) {
-        super.depositar(valorDoDeposito);
-        if (saldo >= 0) {
+        if (saldo < 0) {
             pagarChequeEspecial(valorDoDeposito);
         }
+        super.depositar(valorDoDeposito);
+
     }
 
     public void usarChequeEspecial(double valorDoSaque) {
-        if (saldo + chequeEspecialDisponivel >= valorDoSaque) {
-            chequeEspecialDisponivel -= (valorDoSaque - saldo);
+        if (chequeEspecialDisponivel >= valorDoSaque || saldo + chequeEspecialDisponivel >= valorDoSaque) {
+            if (saldo <= 0) {
+                chequeEspecialDisponivel -= valorDoSaque;
+            } else {
+                chequeEspecialDisponivel -= (valorDoSaque - saldo);
+            }
             saldo -= valorDoSaque;
+            extrato.add("Saque cheque especial: R$ " + fmt.format(valorDoSaque));
             System.out.printf("Seu saldo atual é R$ %.2f e seu limite de cheque especial R$ %.2f\n", saldo, chequeEspecialDisponivel);
         } else {
-            System.out.println("\nSaldo insuficiente");
-            mostrarSaldoAtual();
+            System.out.println("Você não possui limite suficiente para realizar este saque");
         }
     }
 
     public void pagarChequeEspecial(double valorDepositado) {
-        double saldoAntigo = saldo;
         chequeEspecialDisponivel += valorDepositado;
         double diferencaDoPagamento = chequeEspecialDisponivel - chequeEspecialLimite;
+        // Delimitar que o limite do cheque especial, para ao depositar não aumente
         if (diferencaDoPagamento >= 0) {
             chequeEspecialDisponivel = chequeEspecialLimite;
         }

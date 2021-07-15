@@ -1,5 +1,6 @@
 package semana03.dracmabank;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +9,11 @@ public class Conta {
     protected double saldo = 0;
     private int numeroDaConta;
     private boolean statusDaConta = true;
-    private List<String> extrato = new ArrayList<>();
+    protected List<String> extrato = new ArrayList<>();
 
     private Cliente cliente;
+
+    public DecimalFormat fmt = new DecimalFormat("0.00");
 
     public Conta(double saldo, Cliente cliente) {
         this.saldo = saldo;
@@ -28,9 +31,15 @@ public class Conta {
 
     public void mostrarExtrato() {
         System.out.println("\n----Extrato----");
+        System.out.println("DRACMA BANK");
+        System.out.printf("Cliente: %s\n", cliente.getNome());
+        System.out.printf("Número da conta: %d\n", numeroDaConta);
+        System.out.println("--------");
+
         for (String operacao : extrato) {
             System.out.println(operacao);
         }
+
         System.out.println("--------");
         mostrarSaldoAtual();
     }
@@ -39,7 +48,7 @@ public class Conta {
         this.saldo -= valorDoSaque;
         System.out.printf("\nSaque no valor de R$ %.2f realizado com sucesso!\n", valorDoSaque);
         mostrarSaldoAtual();
-        extrato.add("Saque: R$ " + valorDoSaque);
+        extrato.add("Saque: R$ " + fmt.format(valorDoSaque));
     }
 
     public void sacar(double valorDoSaque) {
@@ -54,7 +63,8 @@ public class Conta {
         this.saldo += valorDoDeposito;
         System.out.printf("\nDepósito no valor de R$ %.2f realizado com sucesso!\n", valorDoDeposito);
         mostrarSaldoAtual();
-        extrato.add("Depósito: R$ " + valorDoDeposito);
+        extrato.add("Depósito: R$ " + fmt.format(valorDoDeposito)
+        );
     }
 
     public void encerrarConta() {
